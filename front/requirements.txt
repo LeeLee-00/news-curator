@@ -1,0 +1,7 @@
+streamlit
+requests
+pydantic
+pandas
+bs4
+lxml
+streamlit-tags

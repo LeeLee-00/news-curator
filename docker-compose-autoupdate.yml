@@ -1,0 +1,32 @@
+networks:
+  nginx-network:
+    external: true
+
+services:
+  google_news:
+    container_name: google_news
+    build:
+      context: .
+      dockerfile: ./front/Dockerfile
+    ports:
+      - ":8523"
+    depends_on:
+      - google_news_api
+    networks:
+      - nginx-network
+    volumes:
+      - ./shared_models:/app/shared_models
+      - ./front/app:/frontend/app
+
+  google_news_api:
+    container_name: google_news_api
+    build:
+      context: .
+      dockerfile: ./backend/Dockerfile
+    ports:
+      - ":8527"
+    networks:
+      - nginx-network
+    volumes:
+      - ./shared_models:/app/shared_models
+      - ./backend/app:/backend/app
